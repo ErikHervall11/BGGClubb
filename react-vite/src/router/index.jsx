@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import LoginFormPage from "../components/LoginFormPage";
-import SignupFormPage from "../components/SignupFormPage";
+// import SignupFormPage from "../components/SignupFormPage";
 import RoundFormPage from "../components/RoundForm/RoundFormPage";
 
 import Layout from "./Layout";
@@ -17,10 +17,10 @@ export const router = createBrowserRouter([
         path: "login",
         element: <LoginFormPage />,
       },
-      {
-        path: "signup",
-        element: <SignupFormPage />,
-      },
+      // {
+      //   path: "signup",
+      //   element: <SignupFormPage />,
+      // },
       {
         path: "rounds/new", // New route for RoundForm
         element: <RoundFormPage />,
