@@ -15,3 +15,13 @@ class Score(db.Model):
     # Relationships
     round = db.relationship('Round', back_populates='scores')
     player = db.relationship('Player', back_populates='scores')
+
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'round_id': self.round_id,
+            'player_id': self.player_id,
+            'hole_number': self.hole_number,
+            'strokes': self.strokes,
+        }

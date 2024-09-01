@@ -18,6 +18,7 @@ app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
 
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}}, supports_credentials=True)
 
+
 # Setup login manager
 login = LoginManager(app)
 login.login_view = 'auth.unauthorized'
@@ -39,6 +40,7 @@ db.init_app(app)
 migrate = Migrate(app, db)  # This line initializes Flask-Migrate
 
 # Application Security
+# CORS(app)
 
 
 @app.before_request

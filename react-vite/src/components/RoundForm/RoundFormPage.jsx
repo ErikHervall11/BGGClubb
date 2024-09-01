@@ -63,18 +63,16 @@ const RoundFormPage = () => {
       }
     });
 
+    for (let pair of formData.entries()) {
+      console.log(pair[0] + ": " + pair[1]);
+    }
+
     try {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/api/rounds`,
-        {
-          method: "POST",
-          // headers: {
-          //   "X-CSRFToken": getCookie("csrf_token"), // Ensure CSRF token is included
-          // },
-          credentials: "include", // Ensure cookies are sent with the request
-          body: formData, // Use FormData for the request body
-        }
-      );
+      const response = await fetch("/api/rounds", {
+        method: "POST",
+        credentials: "include", // Ensure cookies are sent with the request
+        body: formData, // Use FormData for the request body
+      });
 
       if (response.ok) {
         alert("Round submitted successfully!");

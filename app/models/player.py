@@ -15,3 +15,10 @@ class Player(db.Model):
     best_scores = db.relationship('BestScore', back_populates='player')
     scorer_rounds = db.relationship('Round', foreign_keys='Round.scorer_id', back_populates='scorer')
     attester_rounds = db.relationship('Round', foreign_keys='Round.attester_id', back_populates='attester')
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            # Include other fields as needed
+        }

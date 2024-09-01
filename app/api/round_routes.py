@@ -3,7 +3,7 @@
 import os
 from flask import Blueprint, jsonify, request
 from werkzeug.utils import secure_filename
-from app.models import db, Round
+from app.models import db, Round, Score, Player
 from flask_login import login_required, current_user
 
 
@@ -53,6 +53,25 @@ def create_round():
         )
 
         db.session.add(new_round)
+        db.session.commit()
+        
+        # Process scores
+        for key, values in scores.items():
+            print(f"Processing key: {key} with values: {values}")  # Debugging statement
+            if key.startswith('scores'):
+                player_id = int(key.split('[')[1].split(']')[0])
+                hole_number = int(key.split('[')[2].split(']')[0])  # Extract the hole number from the key
+                for strokes in values:
+                    if strokes:  # Check if strokes are provided
+                        new_score = Score(
+                            round_id=new_round.id,
+                            player_id=player_id,
+                            hole_number=hole_number,
+                            strokes=int(strokes)
+                        )
+                        db.session.add(new_score)
+                    
+
         db.session.commit()
 
         return jsonify(new_round.to_dict()), 201

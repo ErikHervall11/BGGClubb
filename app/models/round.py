@@ -15,3 +15,16 @@ class Round(db.Model):
     scores = db.relationship('Score', back_populates='round')
     scorer = db.relationship('Player', foreign_keys=[scorer_id], back_populates='scorer_rounds')
     attester = db.relationship('Player', foreign_keys=[attester_id], back_populates='attester_rounds')
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'scorer_id': self.scorer_id,
+            'attester_id': self.attester_id,
+            'scorecard_image': self.scorecard_image,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at,
+            'scores': [score.to_dict() for score in self.scores],  # Assuming Score has a to_dict method
+            'scorer': self.scorer.to_dict(),  # Assuming Player has a to_dict method
+            'attester': self.attester.to_dict(),  # Assuming Player has a to_dict method
+        }
