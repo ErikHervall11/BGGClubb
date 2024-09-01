@@ -10,6 +10,7 @@ const RoundFormPage = () => {
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [scores, setScores] = useState({});
   const [photo, setPhoto] = useState(null); // New state for handling the photo file
+  const [isSubmitted, setIsSubmitted] = useState(false); // Track form submission
 
   useEffect(() => {
     fetch("/api/players")
@@ -26,6 +27,19 @@ const RoundFormPage = () => {
       const selectedPlayer = players.find((p) => p.id === player.value);
       setSelectedPlayers([...selectedPlayers, selectedPlayer]);
       setSelectedPlayer(null); // Reset selected player after adding
+    }
+  };
+
+  const handlePlayerRemove = (playerId) => {
+    if (!isSubmitted) {
+      setSelectedPlayers(
+        selectedPlayers.filter((player) => player.id !== playerId)
+      );
+      setScores((prevScores) => {
+        const updatedScores = { ...prevScores };
+        delete updatedScores[playerId];
+        return updatedScores;
+      });
     }
   };
 
@@ -63,9 +77,9 @@ const RoundFormPage = () => {
       }
     });
 
-    for (let pair of formData.entries()) {
-      console.log(pair[0] + ": " + pair[1]);
-    }
+    // for (let pair of formData.entries()) {
+    //   console.log(pair[0] + ": " + pair[1]);
+    // }
 
     try {
       const response = await fetch("/api/rounds", {
@@ -76,6 +90,7 @@ const RoundFormPage = () => {
 
       if (response.ok) {
         alert("Round submitted successfully!");
+        setIsSubmitted(true); // Set form as submitted
       } else {
         const errorData = await response.json();
         console.error("Error submitting round:", errorData);
@@ -115,7 +130,17 @@ const RoundFormPage = () => {
 
       {selectedPlayers.map((player) => (
         <div key={player.id}>
-          <h3>{player.name}</h3>
+          <h3>
+            {player.name}{" "}
+            {!isSubmitted && (
+              <button
+                type="button"
+                onClick={() => handlePlayerRemove(player.id)}
+              >
+                Remove
+              </button>
+            )}
+          </h3>
           {[...Array(9)].map((_, i) => (
             <div key={i}>
               <label>Hole {i + 1}:</label>
@@ -125,6 +150,7 @@ const RoundFormPage = () => {
                 onChange={(e) =>
                   handleScoreChange(player.id, i + 1, e.target.value)
                 }
+                disabled={isSubmitted} // Disable input after submission
               />
             </div>
           ))}
@@ -145,10 +171,17 @@ const RoundFormPage = () => {
 
       <div>
         <label>Upload Scorecard Photo:</label>
-        <input type="file" onChange={handlePhotoChange} accept="image/*" />
+        <input
+          type="file"
+          onChange={handlePhotoChange}
+          accept="image/*"
+          disabled={isSubmitted} // Disable input after submission
+        />
       </div>
 
-      <button type="submit">Submit Round</button>
+      <button type="submit" disabled={isSubmitted}>
+        Submit Round
+      </button>
     </form>
   );
 };
