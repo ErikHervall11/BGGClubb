@@ -17,7 +17,7 @@ from .config import Config
 
 app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
 
-CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}}, supports_credentials=True)
+CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}}, supports_credentials=True)
 
 # app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, '..', 'public', 'uploads')
 
