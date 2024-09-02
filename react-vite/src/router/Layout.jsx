@@ -6,12 +6,6 @@ import { ModalProvider, Modal } from "../context/Modal";
 import Navigation from "../components/Navigation/Navigation";
 
 export default function Layout() {
-  // const dispatch = useDispatch();
-  // const [isLoaded, setIsLoaded] = useState(true);
-  // useEffect(() => {
-  //   dispatch(thunkAuthenticate()).then(() => setIsLoaded(true));
-  // }, [dispatch]);
-
   return (
     <>
       <ModalProvider>

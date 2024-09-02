@@ -5,6 +5,12 @@ from app.models import db, Score
 
 score_routes = Blueprint('scores', __name__)
 
+
+@score_routes.route('/player/<int:player_id>', methods=['GET'])
+def get_player_scores(player_id):
+    scores = Score.query.filter_by(player_id=player_id).all()
+    return jsonify([score.to_dict() for score in scores])
+
 # Get all scores
 @score_routes.route('/', methods=['GET'])
 def get_scores():

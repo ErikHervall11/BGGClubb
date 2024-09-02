@@ -24,4 +24,5 @@ class Score(db.Model):
             'player_id': self.player_id,
             'hole_number': self.hole_number,
             'strokes': self.strokes,
+            'player': self.player.to_dict() if self.player else None,  # Include player data
         }

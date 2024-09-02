@@ -1,21 +1,34 @@
 # app/api/round_routes.py
 
 import os
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, current_app
 from werkzeug.utils import secure_filename
 from app.models import db, Round, Score, Player
 from flask_login import login_required, current_user
 
 
+
 round_routes = Blueprint('rounds', __name__)
 
 # Define the upload folder directly in this file
-UPLOAD_FOLDER = os.path.join(os.getcwd(), 'uploads')
+# UPLOAD_FOLDER = os.path.join(current_app.root_path, 'public/uploads')
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'heic'}
+
 
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+@round_routes.route('/player/<int:player_id>', methods=['GET'])
+def get_player_rounds(player_id):
+    rounds = Round.query.join(Score).filter(Score.player_id == player_id).all()
+    rounds_data = []
+    for round in rounds:
+        round_dict = round.to_dict()  # Assuming to_dict method includes necessary relationships
+        rounds_data.append(round_dict)
+    
+    return jsonify(rounds_data)
 
 # Get all rounds
 @round_routes.route('/', methods=['GET'])
@@ -36,20 +49,22 @@ def get_round(id):
 def create_round():
     scorer_id = request.form.get('scorer_id')
     attester_id = request.form.get('attester_id')
-    scores = request.form.to_dict(flat=False)  # Handle scores as needed
+    scores = request.form.to_dict(flat=False)
     photo = request.files.get('photo')
 
     # Handle the file upload
     if photo and allowed_file(photo.filename):
         filename = secure_filename(photo.filename)
-        photo.save(os.path.join(UPLOAD_FOLDER, filename))
-        photo_path = os.path.join(UPLOAD_FOLDER, filename)  # Store this in the database
+        photo.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
+        relative_path = f"uploads/{filename}"
+        
+        # photo_path = os.path.join(UPLOAD_FOLDER, filename)  # Store this in the database
 
         # Create a new Round instance with the photo path
         new_round = Round(
             scorer_id=scorer_id,
             attester_id=attester_id,
-            scorecard_image=photo_path  # Save the path in the database
+            scorecard_image=relative_path
         )
 
         db.session.add(new_round)

@@ -10,6 +10,7 @@ from .api.auth_routes import auth_routes
 from .api.player_routes import player_routes
 from .api.round_routes import round_routes
 from .api.score_routes import score_routes
+from flask import send_from_directory
 
 from .seeds import seed_commands
 from .config import Config
@@ -18,6 +19,12 @@ app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
 
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}}, supports_credentials=True)
 
+# app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, '..', 'public', 'uploads')
+
+# Set the upload folder path correctly
+app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, '..', 'static', 'uploads')
+# Max file size: 16MB
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 # Setup login manager
 login = LoginManager(app)
@@ -42,6 +49,10 @@ migrate = Migrate(app, db)  # This line initializes Flask-Migrate
 # Application Security
 # CORS(app)
 
+
+@app.route('/static/uploads/<path:filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 @app.before_request
 def https_redirect():
