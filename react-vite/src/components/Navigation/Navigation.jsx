@@ -27,6 +27,9 @@ function Navigation() {
         <li>
           <NavLink to="/rounds/recent">Most Recent Rounds</NavLink>
         </li>
+        <li>
+          <NavLink to="/leaderboard">Leaderboard</NavLink> {/* New Link */}
+        </li>
       </ul>
       <div className="navbar-profile">
         <ProfileButton />

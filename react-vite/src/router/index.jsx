@@ -3,12 +3,11 @@ import LoginFormPage from "../components/LoginFormPage";
 // import SignupFormPage from "../components/SignupFormPage";
 import RoundFormPage from "../components/RoundForm/RoundFormPage";
 import PlayersPage from "../components/PlayersPage/PlayersPage";
+import MostRecentPage from "../components/MostRecentPage";
+import Leaderboard from "../components/Leaderboard";
+import HomePage from "../components/HomePage";
 
 import Layout from "./Layout";
-
-function RecentRoundsPage() {
-  return <h1>Most Recent Rounds</h1>;
-}
 
 export const router = createBrowserRouter([
   {
@@ -16,7 +15,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <h1>Welcome!</h1>,
+        element: <HomePage />,
       },
       {
         path: "login",
@@ -36,7 +35,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "rounds/recent",
-        element: <RecentRoundsPage />,
+        element: <MostRecentPage />,
+      },
+      {
+        path: "leaderboard", // New route for LeaderboardPage
+        element: <Leaderboard />,
       },
     ],
   },

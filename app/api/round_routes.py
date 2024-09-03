@@ -36,6 +36,12 @@ def get_rounds():
     rounds = Round.query.all()
     return jsonify([round.to_dict() for round in rounds])
 
+@round_routes.route('/recent', methods=['GET'])
+def get_recent_rounds():
+    rounds = Round.query.order_by(Round.created_at.desc()).all()
+    return jsonify([round.to_dict() for round in rounds])
+
+
 # Get a single round by ID
 @round_routes.route('/<int:id>', methods=['GET'])
 def get_round(id):

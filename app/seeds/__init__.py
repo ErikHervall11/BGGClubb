@@ -2,6 +2,7 @@ from flask.cli import AppGroup
 from .users import seed_users, undo_users
 from .players import seed_players, undo_players
 from .rounds import seed_rounds, undo_rounds
+from .seed import seed_settings, undo_settings
 
 from app.models.db import db, environment, SCHEMA
 
@@ -21,15 +22,18 @@ def seed():
         undo_users()
         undo_players()
         undo_rounds()
+        undo_settings()
     seed_users()
     seed_players()
     seed_rounds()
+    seed_settings()
     # Add other seed functions here
 
 
 # Creates the `flask seed undo` command
 @seed_commands.command('undo')
 def undo():
+    undo_settings()
     undo_rounds()
     undo_players()
     undo_users()
