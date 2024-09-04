@@ -14,7 +14,6 @@ function LoginFormModal() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Dispatch the thunkLogin action to attempt logging in
     const serverResponse = await dispatch(
       thunkLogin({
         email,
@@ -23,10 +22,8 @@ function LoginFormModal() {
     );
 
     if (serverResponse) {
-      // If the login fails, display the errors
       setErrors(serverResponse);
     } else {
-      // If successful, close the modal
       closeModal();
     }
   };

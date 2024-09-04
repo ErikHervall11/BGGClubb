@@ -7,7 +7,7 @@ def seed_users():
     admin_user = User(
         username='admin',
         email='admin@example.com',
-        password='password123',  # The password should be hashed in the model
+        password='password123',
         is_admin=True
     )
 

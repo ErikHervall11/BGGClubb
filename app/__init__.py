@@ -4,7 +4,7 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
-from .models import db, User, Player, Round, Score, BestScore, Admin, Setting  # Add all your models here
+from .models import db, User, Player, Round, Score, BestScore, Setting  # Add all your models here
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.player_routes import player_routes
@@ -12,20 +12,19 @@ from .api.round_routes import round_routes
 from .api.score_routes import score_routes
 from .api.settings_routes import settings_routes
 from flask import send_from_directory
-
 from .seeds import seed_commands
 from .config import Config
 
 app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
 
-CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}}, supports_credentials=True)
+# CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}}, supports_credentials=True)
 
 # app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, '..', 'public', 'uploads')
 
 # Set the upload folder path correctly
-app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, '..', 'static', 'uploads')
+# app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, '..', 'static', 'uploads')
 # Max file size: 16MB
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+# app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 # Setup login manager
 login = LoginManager(app)
@@ -46,15 +45,15 @@ app.register_blueprint(round_routes, url_prefix='/api/rounds')
 app.register_blueprint(score_routes, url_prefix='/api/scores')
 app.register_blueprint(settings_routes, url_prefix='/api/settings')
 db.init_app(app)
-migrate = Migrate(app, db)  # This line initializes Flask-Migrate
+Migrate(app, db)  # This line initializes Flask-Migrate
 
 # Application Security
-# CORS(app)
+CORS(app)
 
 
-@app.route('/static/uploads/<path:filename>')
-def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+# @app.route('/static/uploads/<path:filename>')
+# def uploaded_file(filename):
+#     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 @app.before_request
 def https_redirect():

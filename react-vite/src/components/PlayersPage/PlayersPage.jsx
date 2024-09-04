@@ -24,7 +24,7 @@ const PlayersPage = () => {
       .catch((error) => console.error("Error fetching players:", error));
 
     // Fetch the maximum rounds allowed for the season
-    fetch("/api/settings/round_limit")
+    fetch("/api/settings/round-limit")
       .then((response) => response.json())
       .then((data) => setRoundLimit(data.season_round_limit))
       .catch((error) => console.error("Error fetching round limit:", error));
