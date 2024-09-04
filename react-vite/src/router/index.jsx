@@ -1,13 +1,29 @@
 import { createBrowserRouter } from "react-router-dom";
 import LoginFormPage from "../components/LoginFormPage";
-// import SignupFormPage from "../components/SignupFormPage";
 import RoundFormPage from "../components/RoundForm/RoundFormPage";
 import PlayersPage from "../components/PlayersPage/PlayersPage";
 import MostRecentPage from "../components/MostRecentPage";
 import Leaderboard from "../components/Leaderboard";
 import HomePage from "../components/HomePage";
-
 import Layout from "./Layout";
+import { useEffect, useState } from "react";
+
+const RootLayout = () => {
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/auth/") // Adjust this to your auth route
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.is_admin) {
+          setIsAdmin(true);
+        }
+      })
+      .catch((error) => console.error("Error fetching user info:", error));
+  }, []);
+
+  return <HomePage isAdmin={isAdmin} />; // Pass isAdmin to HomePage
+};
 
 export const router = createBrowserRouter([
   {
@@ -15,18 +31,14 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <HomePage />,
+        element: <RootLayout />,
       },
       {
         path: "login",
         element: <LoginFormPage />,
       },
-      // {
-      //   path: "signup",
-      //   element: <SignupFormPage />,
-      // },
       {
-        path: "rounds/new", // New route for RoundForm
+        path: "rounds/new",
         element: <RoundFormPage />,
       },
       {
@@ -38,7 +50,7 @@ export const router = createBrowserRouter([
         element: <MostRecentPage />,
       },
       {
-        path: "leaderboard", // New route for LeaderboardPage
+        path: "leaderboard",
         element: <Leaderboard />,
       },
     ],
