@@ -11,24 +11,24 @@ function Navigation() {
       <div className="navbar-logo">
         <NavLink to="/">
           <img
-            src="/static/uploads/McginnisGolfCourseScorecard.png"
+            src="https://bad-girls-golf-club.s3.us-west-1.amazonaws.com/BGGClogo.png"
             alt="Logo"
             className="logo"
           />
         </NavLink>
       </div>
       <ul className="navbar-links">
-        <li>
+        <li className="navbarpages">
           <NavLink to="/players">Players</NavLink>
         </li>
-        <li>
+        <li className="navbarpages">
           <NavLink to="/rounds/new">Add New Round</NavLink>
         </li>
-        <li>
+        <li className="navbarpages">
           <NavLink to="/rounds/recent">Most Recent Rounds</NavLink>
         </li>
-        <li>
-          <NavLink to="/leaderboard">Leaderboard</NavLink> {/* New Link */}
+        <li className="navbarpages">
+          <NavLink to="/leaderboard">Leaderboard</NavLink>
         </li>
       </ul>
       <div className="navbar-profile">

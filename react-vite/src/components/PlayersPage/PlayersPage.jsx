@@ -72,7 +72,7 @@ const PlayersPage = () => {
   }, [selectedPlayer]);
 
   return (
-    <div>
+    <div className="players-page">
       <h2>Select a Player</h2>
       <Select
         options={players}
@@ -134,13 +134,8 @@ const PlayersPage = () => {
                 <p>
                   <strong>Scorecard Image:</strong>
                 </p>
-                <img
-                  src={`/static/${round.scorecard_image}`}
-                  alt="Scorecard"
-                  style={{ maxWidth: "100px" }}
-                />
-
-                <table>
+                <img src={`${round.scorecard_image}`} alt="Scorecard" />
+                <table className="hole-info-table">
                   <thead>
                     <tr>
                       <th>Player</th>

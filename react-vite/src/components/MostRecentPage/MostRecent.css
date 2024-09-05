@@ -1,0 +1,130 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap");
+
+.signature {
+  font-family: "Dancing Script", cursive;
+  font-size: 1rem;
+  color: #333;
+}
+
+h2 {
+  display: flex;
+  justify-content: center;
+  font-size: 50px;
+}
+
+.most-recent-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.round-card {
+  border: 5px solid #c60c71;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.scorecard-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* Two-thirds left for table, one-third right for image */
+  gap: 20px;
+}
+
+.score-details {
+  width: 100%;
+  border: #086429 5px solid;
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+td,
+p,
+span {
+  background-color: #ffffff;
+}
+
+.hole-info-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.hole-info-table th,
+.hole-info-table td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+.hole-info-table th {
+  background-color: #4caf50;
+  color: white;
+}
+
+.player-column {
+  background-color: #d9f2d9;
+  /* font-weight: bold; */
+}
+
+.out-column {
+  background-color: #2e7d32;
+  color: white;
+  /* font-weight: bold; */
+}
+
+.scorecard-footer {
+  margin-top: 15px;
+  font-size: 14px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.scorecard-footer p {
+  margin: 5px 0;
+}
+.scorecard-footer span {
+  margin-right: 50px;
+}
+
+/* .scorecard-footer span {
+  font-weight: bold;
+} */
+
+.scorecard-image-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 125px;
+}
+
+.scorecard-image {
+  max-width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.scorecard-image:hover {
+  transform: scale(1.6);
+  z-index: 1;
+}
+
+.show-more-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.show-more-button:hover {
+  background-color: #45a049;
+}

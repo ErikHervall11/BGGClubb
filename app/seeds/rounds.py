@@ -2,8 +2,8 @@ from app.models import db, Round, Score, environment, SCHEMA
 from sqlalchemy.sql import text
 
 def seed_rounds():
-    round1 = Round(scorer_id=1, attester_id=2, scorecard_image='uploads/scorecard1.png')
-    round2 = Round(scorer_id=2, attester_id=3, scorecard_image='uploads/scorecard2.png')
+    round1 = Round(scorer_id=1, attester_id=2, scorecard_image='https://bad-girls-golf-club.s3.us-west-1.amazonaws.com/McginnisGolfCourseScorecard1.png')
+    round2 = Round(scorer_id=2, attester_id=3, scorecard_image='https://bad-girls-golf-club.s3.us-west-1.amazonaws.com/McginnisGolfCourseScorecard1.png')
 
     scores = [
         Score(round_id=1, player_id=1, hole_number=1, strokes=4),

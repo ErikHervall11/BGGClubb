@@ -4,6 +4,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
+import "./Navigation.css";
 // import SignupFormModal from "../SignupFormModal";
 
 function ProfileButton() {
@@ -41,7 +42,7 @@ function ProfileButton() {
 
   return (
     <>
-      <button onClick={toggleMenu}>
+      <button className="prof-button" onClick={toggleMenu}>
         <FaUserCircle />
       </button>
       {showMenu && (

@@ -1,17 +1,13 @@
 # app/api/round_routes.py
-
-import os
 from flask import Blueprint, jsonify, request, current_app
-from werkzeug.utils import secure_filename
 from app.models import db, Round, Score, Player
+from app.api.AWS_helpers import upload_file_to_s3, get_unique_filename, remove_file_from_s3
 from flask_login import login_required, current_user
 
 
 
 round_routes = Blueprint('rounds', __name__)
 
-# Define the upload folder directly in this file
-# UPLOAD_FOLDER = os.path.join(current_app.root_path, 'public/uploads')
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'heic'}
 
 
@@ -58,19 +54,21 @@ def create_round():
     scores = request.form.to_dict(flat=False)
     photo = request.files.get('photo')
 
-    # Handle the file upload
+     # Handle the file upload to AWS S3
     if photo and allowed_file(photo.filename):
-        filename = secure_filename(photo.filename)
-        photo.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
-        relative_path = f"uploads/{filename}"
-        
-        # photo_path = os.path.join(UPLOAD_FOLDER, filename)  # Store this in the database
+        photo.filename = get_unique_filename(photo.filename)  # Get a unique filename
+        upload = upload_file_to_s3(photo)
 
-        # Create a new Round instance with the photo path
+        if "url" not in upload:
+            return jsonify({"error": "File upload to S3 failed"}), 400
+
+        photo_url = upload["url"]  # Get the public S3 URL of the uploaded photo
+
+        # Create a new Round instance with the S3 photo URL
         new_round = Round(
             scorer_id=scorer_id,
             attester_id=attester_id,
-            scorecard_image=relative_path
+            scorecard_image=photo_url  # Save the S3 URL to the database
         )
 
         db.session.add(new_round)
