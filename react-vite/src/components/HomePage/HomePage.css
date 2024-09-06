@@ -1,0 +1,83 @@
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 0px;
+  margin-left: -50px;
+}
+
+.scorecard-map {
+  width: 270px;
+  margin-right: 20px;
+}
+
+.scorecard-header {
+  width: 200px;
+  margin-left: 40px;
+}
+
+.header {
+  font-size: 80px;
+}
+
+.weather-section {
+  text-align: center;
+}
+
+.weather-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.weather-day-card {
+  background-color: #c8e0fe;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 15px;
+  border: 1px solid #c8e0fe;
+  width: 90px;
+  text-align: center;
+  box-shadow: 0px 0px 20px 5px rgba(255, 255, 0, 0.664);
+}
+
+.weather-day-card h3 {
+  margin: 5px 0px;
+  background-color: #c8e0fe;
+}
+
+.weather-day-card p {
+  margin: 5px 0px;
+  background-color: #c8e0fe;
+  font-style: italic;
+  display: flex;
+  gap: 5px;
+}
+
+.weather-info {
+  background-color: #c8e0fe;
+  font-style: normal;
+}
+
+.round-edit {
+  /* border: yellow 2px solid; */
+  /* display: flex; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 50px;
+}
+
+.round-edit p {
+  background-color: #e29dd3;
+  margin-bottom: 0px;
+}
+
+.round-edit input {
+  width: 30px;
+  border-radius: 10px;
+}
+.round-edit button {
+  border-radius: 10px;
+}

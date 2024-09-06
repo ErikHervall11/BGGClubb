@@ -1,20 +1,24 @@
 import { useState, useEffect } from "react";
-import "./RoundForm.css";
 import Select from "react-select";
+import "./RoundForm.css";
 
 const RoundFormPage = () => {
   const [scorerId, setScorerId] = useState(null);
   const [attesterId, setAttesterId] = useState(null);
   const [selectedPlayer, setSelectedPlayer] = useState(null);
-  const [players, setPlayers] = useState([]);
+  const [players, setPlayers] = useState([]); // All players for Scorer and Attester
+  const [availablePlayersForScores, setAvailablePlayersForScores] = useState(
+    []
+  ); // Only players who haven't hit round limit
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [scores, setScores] = useState({});
-  const [photo, setPhoto] = useState(null); // New state for handling the photo file
-  const [isSubmitted, setIsSubmitted] = useState(false); // Track form submission
-  const [imageLoading, setImageLoading] = useState(false); // Track image loading state
+  const [photo, setPhoto] = useState(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [imageLoading, setImageLoading] = useState(false);
   const [maxRounds, setMaxRounds] = useState(8); // Default value; you will fetch the actual value
   const [playerMessage, setPlayerMessage] = useState(""); // Message to show if a player has hit max rounds
 
+  // Fetch the round limit and players
   useEffect(() => {
     // Fetch the maximum rounds allowed for the season
     fetch("/api/settings/round-limit")
@@ -22,26 +26,32 @@ const RoundFormPage = () => {
       .then((data) => {
         setMaxRounds(data.round_limit);
 
-        // Fetch the players and their round counts after setting the round limit
+        // Fetch all players for Scorer and Attester (no round limit filter)
         return fetch("/api/players");
       })
       .then((response) => response.json())
       .then((data) => {
-        // Filter out players who have hit the max rounds
-        const availablePlayers = data.filter(
+        // Set players for Scorer and Attester (all players)
+        setPlayers(data);
+
+        // Filter out players for "Select Player" who have hit the max rounds
+        const availablePlayersForScores = data.filter(
           (player) => player.rounds_played < maxRounds
         );
-        setPlayers(availablePlayers);
+        setAvailablePlayersForScores(availablePlayersForScores);
       })
       .catch((error) => console.error("Error fetching data:", error));
   }, [maxRounds]);
 
+  // Handle player selection
   const handlePlayerSelect = (player) => {
     if (
       selectedPlayers.length < 4 &&
       !selectedPlayers.some((p) => p.id === player.value)
     ) {
-      const selectedPlayer = players.find((p) => p.id === player.value);
+      const selectedPlayer = availablePlayersForScores.find(
+        (p) => p.id === player.value
+      );
       setSelectedPlayers([...selectedPlayers, selectedPlayer]);
       setSelectedPlayer(null); // Reset selected player after adding
 
@@ -108,7 +118,6 @@ const RoundFormPage = () => {
     try {
       const response = await fetch("/api/rounds", {
         method: "POST",
-        // credentials: "include", // Ensure cookies are sent with the request
         body: formData, // Use FormData for the request body
       });
 
@@ -128,7 +137,7 @@ const RoundFormPage = () => {
     }
   };
 
-  const playerOptions = players.map((player) => ({
+  const playerOptions = availablePlayersForScores.map((player) => ({
     value: player.id,
     label: player.name,
   }));
@@ -138,7 +147,10 @@ const RoundFormPage = () => {
       <div>
         <label>Scorer:</label>
         <Select
-          options={playerOptions}
+          options={players.map((player) => ({
+            value: player.id,
+            label: player.name,
+          }))}
           value={scorerId}
           onChange={setScorerId}
           placeholder="Select Scorer"
@@ -147,7 +159,10 @@ const RoundFormPage = () => {
       <div>
         <label>Attester:</label>
         <Select
-          options={playerOptions}
+          options={players.map((player) => ({
+            value: player.id,
+            label: player.name,
+          }))}
           value={attesterId}
           onChange={setAttesterId}
           placeholder="Select Attester"
@@ -205,8 +220,7 @@ const RoundFormPage = () => {
           type="file"
           onChange={handlePhotoChange}
           accept="image/*"
-          capture="environment"
-          disabled={isSubmitted} // Disable input after submission
+          disabled={isSubmitted}
         />
       </div>
 

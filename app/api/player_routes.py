@@ -1,7 +1,7 @@
 # app/api/player_routes.py
 
 from flask import Blueprint, jsonify, request
-from app.models import db, Player, Round
+from app.models import db, Player, Round, Score
 
 player_routes = Blueprint('players', __name__)
 
@@ -43,17 +43,13 @@ def get_players():
     player_list = []
 
     for player in players:
-        rounds_played = Round.query.filter(
-            (Round.scorer_id == player.id) | (Round.attester_id == player.id)
-        ).count()
+        # Count the number of rounds where the player has actually submitted scores
+        rounds_played = Round.query.join(Score).filter(
+            Score.player_id == player.id
+        ).distinct().count()
 
-        # Use the existing to_dict() method to get the player's details
         player_data = player.to_dict()
-
-        # Add the rounds_played information to the dictionary
         player_data['rounds_played'] = rounds_played
-
-        # Add the player data to the list
         player_list.append(player_data)
 
     return jsonify(player_list)

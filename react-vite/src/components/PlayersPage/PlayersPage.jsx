@@ -2,6 +2,46 @@ import { useState, useEffect } from "react";
 import Select from "react-select";
 import "./PlayersPage.css";
 
+const customStyles = {
+  control: (provided, state) => ({
+    ...provided,
+    width: "30%",
+    backgroundColor: state.isFocused ? "#e29dd3" : "#e29dd3", // Change background color
+    borderColor: state.isFocused ? "#e29dd3" : "black", // Change border color when focused and unfocused
+    borderWidth: "2px",
+    boxShadow: state.isFocused ? "0 0 5px 5px #c8e0fe" : null, // Add a box shadow when focused
+    "&:hover": {
+      borderColor: "#c8e0fe", // Change border color on hover
+    },
+  }),
+  menu: (provided) => ({
+    ...provided,
+    width: "30%",
+    backgroundColor: "#fff", // Change the background color of the dropdown menu
+    borderColor: "#c8e0fe",
+  }),
+  option: (provided, state) => ({
+    ...provided,
+    backgroundColor: state.isSelected
+      ? "#c60c71"
+      : state.isFocused
+      ? "#f5f5f5"
+      : "#fff", // Change background color for selected and focused options
+    color: state.isSelected ? "#fff" : "#333", // Change text color for selected and non-selected
+    "&:hover": {
+      backgroundColor: "#c8e0fe", // Background color when hovering over options
+    },
+  }),
+  placeholder: (provided) => ({
+    ...provided,
+    color: "#999", // Change placeholder text color
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    color: "#333", // Change the text color of the selected value
+  }),
+};
+
 const PlayersPage = () => {
   const [players, setPlayers] = useState([]);
   const [selectedPlayer, setSelectedPlayer] = useState(null);
@@ -75,10 +115,12 @@ const PlayersPage = () => {
     <div className="players-page">
       <h2>Select a Player</h2>
       <Select
+        className="player-select-dropdown"
         options={players}
         value={selectedPlayer}
         onChange={setSelectedPlayer}
         placeholder="Search for a player..."
+        styles={customStyles} // Apply custom styles here
       />
 
       {selectedPlayer && (
@@ -86,24 +128,24 @@ const PlayersPage = () => {
           {selectedPlayer.rounds_played >= roundLimit && (
             <p>{`${selectedPlayer.label} has hit the maximum rounds for this season.`}</p>
           )}
-          <div className="best-scores">
+          <div className="players-best-scores">
             <h3>{selectedPlayer.label}&apos;s Best Holes</h3>
-            <table>
+            <table className="players-best-holes-table">
               <thead>
                 <tr>
-                  <th>Hole</th>
-                  <th>Score</th>
+                  <th></th>
+                  {bestScores.map((_, index) => (
+                    <th key={index}>Hole {index + 1}</th>
+                  ))}
+                  <th>Total</th>
                 </tr>
               </thead>
               <tbody>
-                {bestScores.map((score, index) => (
-                  <tr key={index}>
-                    <td>Hole {index + 1}</td>
-                    <td>{score ? score.strokes : "-"}</td>
-                  </tr>
-                ))}
                 <tr>
-                  <td>Total</td>
+                  <td>Score</td>
+                  {bestScores.map((score, index) => (
+                    <td key={index}>{score ? score.strokes : "-"}</td>
+                  ))}
                   <td>
                     {bestScores.reduce(
                       (acc, score) => acc + (score ? score.strokes : 0),
@@ -115,78 +157,102 @@ const PlayersPage = () => {
             </table>
           </div>
 
-          <div className="round-history">
+          <div className="players-round-history">
             <h3>Round History</h3>
             {rounds.map((round) => (
-              <div key={round.id} className="round-card">
-                <h4>
-                  Round played on{" "}
-                  {new Date(round.created_at).toLocaleDateString()}
-                </h4>
-                <p>
-                  <strong>Scorer:</strong>{" "}
-                  {round.scorer ? round.scorer.name : "Unknown"}
-                </p>
-                <p>
-                  <strong>Attester:</strong>{" "}
-                  {round.attester ? round.attester.name : "Unknown"}
-                </p>
-                <p>
-                  <strong>Scorecard Image:</strong>
-                </p>
-                <img src={`${round.scorecard_image}`} alt="Scorecard" />
-                <table className="hole-info-table">
-                  <thead>
-                    <tr>
-                      <th>Player</th>
-                      {Array.from({ length: 9 }, (_, i) => (
-                        <th key={i}>Hole {i + 1}</th>
-                      ))}
-                      <th>Total</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {round.scores
-                      .reduce((acc, score) => {
-                        const player = acc.find(
-                          (p) => p.player_id === score.player_id
-                        );
-                        if (player) {
-                          player.scores[score.hole_number - 1] = score.strokes;
-                        } else {
-                          acc.push({
-                            player_id: score.player_id,
-                            player_name: score.player
-                              ? score.player.name
-                              : "Unknown",
-                            scores: Array(9)
-                              .fill(null)
-                              .map((_, i) =>
-                                i === score.hole_number - 1
-                                  ? score.strokes
-                                  : null
-                              ),
-                          });
-                        }
-                        return acc;
-                      }, [])
-                      .map((playerScore) => (
-                        <tr key={playerScore.player_id}>
-                          <td>{playerScore.player_name}</td>
-                          {playerScore.scores.map((strokes, i) => (
-                            <td key={i}>{strokes !== null ? strokes : "-"}</td>
+              <div key={round.id} className="players-round-card">
+                <div className="players-scorecard-layout">
+                  {/* Left column: table for hole details */}
+                  <div className="players-score-details">
+                    <table className="players-hole-info-table">
+                      <thead>
+                        <tr>
+                          <th>Player</th>
+                          {Array.from({ length: 9 }, (_, i) => (
+                            <th key={i}>Hole {i + 1}</th>
                           ))}
-                          <td>
-                            {playerScore.scores.reduce(
-                              (acc, strokes) =>
-                                acc + (strokes !== null ? strokes : 0),
-                              0
-                            )}
-                          </td>
+                          <th>Total</th>
                         </tr>
-                      ))}
-                  </tbody>
-                </table>
+                      </thead>
+                      <tbody>
+                        {round.scores
+                          .reduce((acc, score) => {
+                            const player = acc.find(
+                              (p) => p.player_id === score.player_id
+                            );
+                            if (player) {
+                              player.scores[score.hole_number - 1] =
+                                score.strokes;
+                            } else {
+                              acc.push({
+                                player_id: score.player_id,
+                                player_name: score.player
+                                  ? score.player.name
+                                  : "Unknown",
+                                scores: Array(9)
+                                  .fill(null)
+                                  .map((_, i) =>
+                                    i === score.hole_number - 1
+                                      ? score.strokes
+                                      : null
+                                  ),
+                              });
+                            }
+                            return acc;
+                          }, [])
+                          .map((playerScore) => (
+                            <tr key={playerScore.player_id}>
+                              <td className="players-player-column">
+                                {playerScore.player_name}
+                              </td>
+                              {playerScore.scores.map((strokes, i) => (
+                                <td key={i}>
+                                  {strokes !== null ? strokes : "-"}
+                                </td>
+                              ))}
+                              <td className="players-out-column">
+                                {playerScore.scores.reduce(
+                                  (acc, strokes) =>
+                                    acc + (strokes !== null ? strokes : 0),
+                                  0
+                                )}
+                              </td>
+                            </tr>
+                          ))}
+                      </tbody>
+                    </table>
+
+                    <div className="players-scorecard-footer">
+                      <p>
+                        <span>Scorer:</span>{" "}
+                        <span className="signature">
+                          {round.scorer ? round.scorer.name : "Unknown"}
+                        </span>
+                      </p>
+                      <p>
+                        <span>Attester:</span>{" "}
+                        <span className="signature">
+                          {round.attester ? round.attester.name : "Unknown"}
+                        </span>
+                      </p>
+                      <p>
+                        <span>Date:</span>{" "}
+                        <span className="signature">
+                          {new Date(round.created_at).toLocaleDateString()}
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Right column: scorecard image */}
+                  <div className="players-scorecard-image-column">
+                    <img
+                      src={`${round.scorecard_image}`}
+                      alt="Scorecard"
+                      className="players-scorecard-image"
+                    />
+                  </div>
+                </div>
               </div>
             ))}
           </div>

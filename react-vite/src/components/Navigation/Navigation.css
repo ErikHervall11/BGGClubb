@@ -10,6 +10,9 @@
   /* background-color: #c60c71; */
   color: black;
   font-size: 40px;
+  border-bottom: solid 1px black;
+  width: 90%;
+  margin: auto;
 }
 
 .navbar-logo img {

@@ -76,7 +76,7 @@ def create_round():
         
         # Process scores
         for key, values in scores.items():
-            print(f"Processing key: {key} with values: {values}")  # Debugging statement
+            # print(f"Processing key: {key} with values: {values}")  # Debugging statement
             if key.startswith('scores'):
                 player_id = int(key.split('[')[1].split(']')[0])
                 hole_number = int(key.split('[')[2].split(']')[0])  # Extract the hole number from the key
