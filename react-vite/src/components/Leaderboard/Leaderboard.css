@@ -1,27 +1,107 @@
 .leaderboard {
-  margin: 2rem;
-  padding: 1rem;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #c8e0fe; /* Brighten up the leaderboard background */
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 80%; /* Constrain width for better visual balance */
+}
+
+.table-back {
+  background-color: #c8e0fe;
+}
+
+/* Highlight the Total Score */
+.leaderboard td:last-child {
+  background-color: #ffe5f7; /* Light pink background for total column */
+  font-weight: bold; /* Make the text bolder */
+  color: #4caf50; /* Use the pink color for the text to match the site theme */
+  border-left: 3px solid #4caf50; /* Add a border to make the column stand out */
+  border-bottom: solid 1px #4caf50;
+}
+
+.leaderboard th:last-child {
+  background-color: #4caf50; /* Darker pink for header */
+  color: #fff;
+}
+
+.leaderboard td {
+  transition: background-color 0.3s ease, font-weight 0.3s ease;
+}
+
+.leaderboard tr:hover td:last-child {
+  background-color: #f9f9f9; /* On hover, change background to a light color */
+  color: #000;
+}
+
+.leaderboard h2 {
+  font-size: 2.5rem;
+  color: #000; /* Contrast title */
+  text-align: center;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background-color: #c8e0fe;
 }
 
 .leaderboard table {
   width: 100%;
   border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden; /* Ensure proper border-radius */
 }
 
 .leaderboard th,
 .leaderboard td {
-  padding: 8px;
+  padding: 1rem;
   text-align: center;
-  border-bottom: 1px solid #ddd;
+  border: 1px solid #e0e0e0; /* Add border for grid effect */
+  font-size: 1.1rem;
 }
 
 .leaderboard th {
-  background-color: #f1f1f1;
+  background-color: #c60c71; /* Consistent pink color for header */
+  color: white;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
 .leaderboard td {
-  background-color: #fff;
+  background-color: #f5f5f5; /* Subtle contrast for player rows */
+}
+
+.leaderboard tr:nth-child(even) td {
+  background-color: #f0e1ec; /* Alternate row coloring for clarity */
+}
+
+.leaderboard td:first-child {
+  text-align: left; /* Align player name to the left for better readability */
+}
+
+/* Grid style separator lines */
+.leaderboard th,
+.leaderboard td {
+  border-right: 1px solid #ddd;
+}
+
+.leaderboard th:last-child,
+.leaderboard td:last-child {
+  border-right: none;
+}
+
+.leaderboard .show-more-button {
+  display: block;
+  margin: 1.5rem auto;
+  padding: 0.75rem 1.5rem;
+  background-color: #c60c71;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.leaderboard .show-more-button:hover {
+  background-color: #a40a5b; /* Darken button on hover */
 }

@@ -1,0 +1,163 @@
+/* RoundForm.css */
+
+.round-form-container {
+  background-color: #c8e0fe;
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 800px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.select-backgrounds {
+  background-color: #c8e0fe;
+}
+
+.select-backgrounds label {
+  background-color: #c8e0fe;
+}
+
+.select-backgrounds h3 {
+  background-color: #c8e0fe;
+}
+
+.score-input {
+  background-color: #c8e0fe;
+  display: flex;
+  justify-content: center;
+}
+
+.select-backgrounds h3 button {
+  align-items: center;
+  justify-content: center;
+  width: 10%;
+}
+
+.select-player label {
+  background-color: #c8e0fe;
+}
+
+.button-submit-bottom {
+  background-color: #c8e0fe;
+}
+
+.label-form {
+  background-color: #c8e0fe;
+  margin-bottom: 30px;
+}
+.label-form label {
+  background-color: #c8e0fe;
+}
+
+.round-form-container form {
+  background-color: #c8e0fe;
+}
+
+.select-player {
+  background-color: #c8e0fe;
+}
+
+.round-form-container h2 {
+  text-align: center;
+  color: #c60c71;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.round-form-container label {
+  font-weight: bold;
+  color: #333;
+}
+
+.round-form-container input[type="number"],
+.round-form-container input[type="file"],
+.round-form-container select {
+  color: black;
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
+}
+
+.round-form-container input[type="number"]:focus,
+.round-form-container select:focus {
+  border-color: #c60c71;
+  color: black;
+}
+
+.round-form-container button {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #c60c71;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.round-form-container button:hover {
+  background-color: #a40a5b;
+}
+
+.round-form-container .select-player {
+  margin-top: 1rem;
+}
+
+.round-form-container .score-input {
+  gap: 10px;
+  align-items: center;
+}
+
+.round-form-container .score-input label {
+  margin-right: 10px;
+}
+
+.round-form-container .player-message {
+  color: red;
+  font-weight: bold;
+}
+
+.round-form-container .image-loading {
+  text-align: center;
+  color: #333;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+
+.round-form-container h3 {
+  font-size: 1.2rem;
+  color: #c60c71;
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 80px;
+}
+
+.round-form-container h3 button {
+  background-color: #c60c71;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.round-form-container h3 button:hover {
+  background-color: #a40a5b;
+}
+
+.photo-upload {
+  width: 95%;
+  background-color: #c8e0fe;
+}
+.photo-upload label {
+  background-color: #c8e0fe;
+}

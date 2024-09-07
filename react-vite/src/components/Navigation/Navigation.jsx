@@ -22,10 +22,10 @@ function Navigation() {
           <NavLink to="/players">Players</NavLink>
         </li>
         <li className="navbarpages">
-          <NavLink to="/rounds/new">Add New Round</NavLink>
+          <NavLink to="/rounds/new">Add New</NavLink>
         </li>
         <li className="navbarpages">
-          <NavLink to="/rounds/recent">Most Recent Rounds</NavLink>
+          <NavLink to="/rounds/recent">Most Recent</NavLink>
         </li>
         <li className="navbarpages">
           <NavLink to="/leaderboard">Leaderboard</NavLink>

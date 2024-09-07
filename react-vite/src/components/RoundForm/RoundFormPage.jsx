@@ -2,6 +2,30 @@ import { useState, useEffect } from "react";
 import Select from "react-select";
 import "./RoundForm.css";
 
+// const customStyles = {
+//   control: (provided) => ({
+//     ...provided,
+//     backgroundColor: "#fff", // Ensure the background is white
+//     color: "#000", // Ensure text color is black
+//   }),
+//   singleValue: (provided) => ({
+//     ...provided,
+//     color: "#000", // Ensure selected value text is black
+//   }),
+//   option: (provided, state) => ({
+//     ...provided,
+//     backgroundColor: state.isSelected ? "#e29dd3" : "#fff", // Highlight selected option
+//     color: state.isSelected ? "#000" : "#000", // Ensure options text is black
+//     "&:hover": {
+//       backgroundColor: "#f0e1ec", // Add a hover effect to options
+//     },
+//   }),
+//   placeholder: (provided) => ({
+//     ...provided,
+//     color: "#999", // Placeholder color
+//   }),
+// };
+
 const RoundFormPage = () => {
   const [scorerId, setScorerId] = useState(null);
   const [attesterId, setAttesterId] = useState(null);
@@ -143,93 +167,110 @@ const RoundFormPage = () => {
   }));
 
   return (
-    <form onSubmit={handleSubmit} encType="multipart/form-data">
-      <div>
-        <label>Scorer:</label>
-        <Select
-          options={players.map((player) => ({
-            value: player.id,
-            label: player.name,
-          }))}
-          value={scorerId}
-          onChange={setScorerId}
-          placeholder="Select Scorer"
-        />
-      </div>
-      <div>
-        <label>Attester:</label>
-        <Select
-          options={players.map((player) => ({
-            value: player.id,
-            label: player.name,
-          }))}
-          value={attesterId}
-          onChange={setAttesterId}
-          placeholder="Select Attester"
-        />
-      </div>
+    <div className="round-form-container">
+      {/* <h2>Submit a Round</h2> */}
 
-      {selectedPlayer && playerMessage && (
-        <div className="player-message">{playerMessage}</div>
-      )}
-
-      {selectedPlayers.map((player) => (
-        <div key={player.id}>
-          <h3>
-            {player.name}{" "}
-            {!isSubmitted && (
-              <button
-                type="button"
-                onClick={() => handlePlayerRemove(player.id)}
-              >
-                Remove
-              </button>
-            )}
-          </h3>
-          {[...Array(9)].map((_, i) => (
-            <div key={i}>
-              <label>Hole {i + 1}:</label>
-              <input
-                type="number"
-                value={scores[player.id]?.[i + 1] || ""}
-                onChange={(e) =>
-                  handleScoreChange(player.id, i + 1, e.target.value)
-                }
-                disabled={isSubmitted} // Disable input after submission
-              />
-            </div>
-          ))}
-        </div>
-      ))}
-
-      {selectedPlayers.length < 4 && (
-        <div>
-          <label>Select Player:</label>
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
+        <div className="label-form">
+          <label>
+            Scorer:{" "}
+            {scorerId ? players.find((p) => p.id === scorerId.value)?.name : ""}
+          </label>
           <Select
-            options={playerOptions}
-            value={selectedPlayer}
-            onChange={handlePlayerSelect}
-            placeholder="Select Player"
+            // styles={customStyles}
+            options={players.map((player) => ({
+              value: player.id,
+              label: player.name,
+            }))}
+            value={scorerId}
+            onChange={setScorerId}
+            placeholder="Select Scorer"
           />
         </div>
-      )}
+        <div className="select-backgrounds">
+          <label>
+            Attester:{" "}
+            {attesterId
+              ? players.find((p) => p.id === attesterId.value)?.name
+              : ""}
+          </label>
+          <Select
+            // styles={customStyles}
+            options={players.map((player) => ({
+              value: player.id,
+              label: player.name,
+            }))}
+            value={attesterId}
+            onChange={setAttesterId}
+            placeholder="Select Attester"
+          />
+        </div>
 
-      <div>
-        <label>Upload Scorecard Photo:</label>
-        <input
-          type="file"
-          onChange={handlePhotoChange}
-          accept="image/*"
-          disabled={isSubmitted}
-        />
-      </div>
+        {selectedPlayer && playerMessage && (
+          <div className="player-message">{playerMessage}</div>
+        )}
 
-      <button type="submit" disabled={isSubmitted}>
-        Submit Round
-      </button>
+        {selectedPlayers.map((player) => (
+          <div className="select-backgrounds" key={player.id}>
+            <h3>
+              {player.name}{" "}
+              {!isSubmitted && (
+                <button
+                  className="remove-button"
+                  type="button"
+                  onClick={() => handlePlayerRemove(player.id)}
+                >
+                  Remove
+                </button>
+              )}
+            </h3>
+            {[...Array(9)].map((_, i) => (
+              <div key={i} className="score-input">
+                <label>Hole {i + 1}:</label>
+                <input
+                  type="number"
+                  value={scores[player.id]?.[i + 1] || ""}
+                  onChange={(e) =>
+                    handleScoreChange(player.id, i + 1, e.target.value)
+                  }
+                  disabled={isSubmitted}
+                />
+              </div>
+            ))}
+          </div>
+        ))}
 
-      {imageLoading && <p>Loading image to AWS...</p>}
-    </form>
+        {selectedPlayers.length < 4 && (
+          <div className="select-player">
+            <label>Select Player:</label>
+            <Select
+              options={playerOptions}
+              value={selectedPlayer}
+              onChange={handlePlayerSelect}
+              placeholder="Select Player"
+            />
+          </div>
+        )}
+
+        <div className="photo-upload">
+          <label>Upload Scorecard Photo:</label>
+          <input
+            type="file"
+            onChange={handlePhotoChange}
+            accept="image/*"
+            disabled={isSubmitted}
+          />
+        </div>
+        <div className="button-submit-bottom">
+          <button type="submit" disabled={isSubmitted}>
+            Submit Round
+          </button>
+        </div>
+        {imageLoading && (
+          <p className="image-loading">Loading image to AWS...</p>
+        )}
+      </form>
+    </div>
   );
 };
 

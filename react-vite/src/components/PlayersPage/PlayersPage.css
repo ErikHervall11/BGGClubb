@@ -51,6 +51,7 @@ h2 {
   padding: 10px;
   text-align: center;
   border: 1px solid #ccc;
+  font-weight: normal;
 }
 
 .players-best-holes-table th {
@@ -132,6 +133,7 @@ span {
   padding: 10px;
   text-align: center;
   border: 1px solid #ccc;
+  font-weight: normal;
 }
 
 .players-hole-info-table th {

@@ -56,6 +56,7 @@ span {
   padding: 10px;
   text-align: center;
   border: 1px solid #ccc;
+  font-weight: normal;
 }
 
 .hole-info-table th {

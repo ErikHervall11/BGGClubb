@@ -53,7 +53,11 @@
   color: black;
   text-decoration: none;
   border: 1px solid #e29dd3;
-  padding: 3px 8px;
+  padding: 3px 10px;
+
+  /* margin: 0px 40px; */
+  display: flex;
+  text-align: center;
 }
 
 .navbar-links a:hover {
