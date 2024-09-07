@@ -37,6 +37,10 @@ def get_leaderboard():
 
 # ###########
 
+# Create a new player
+
+
+
 @player_routes.route('/', methods=['GET'])
 def get_players():
     players = Player.query.all()

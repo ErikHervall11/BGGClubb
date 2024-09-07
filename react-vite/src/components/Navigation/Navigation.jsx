@@ -30,6 +30,9 @@ function Navigation() {
         <li className="navbarpages">
           <NavLink to="/leaderboard">Leaderboard</NavLink>
         </li>
+        <li className="navbarpages">
+          <NavLink to="/players/new">Add New Player</NavLink>
+        </li>
       </ul>
       <div className="navbar-profile">
         <ProfileButton />

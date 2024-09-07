@@ -5,6 +5,7 @@ import PlayersPage from "../components/PlayersPage/PlayersPage";
 import MostRecentPage from "../components/MostRecentPage";
 import Leaderboard from "../components/Leaderboard";
 import HomePage from "../components/HomePage";
+import NewPlayerForm from "../components/NewPlayerForm/NewPlayerForm";
 import Layout from "./Layout";
 import { useEffect, useState } from "react";
 
@@ -52,6 +53,10 @@ export const router = createBrowserRouter([
       {
         path: "leaderboard",
         element: <Leaderboard />,
+      },
+      {
+        path: "players/new",
+        element: <NewPlayerForm />,
       },
     ],
   },
