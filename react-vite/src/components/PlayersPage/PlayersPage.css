@@ -201,3 +201,126 @@ span {
 .show-more-button:hover {
   background-color: #45a049;
 }
+
+@media (max-width: 768px) {
+  .players-page {
+    padding: 10px;
+  }
+
+  h2 {
+    font-size: 32px; /* Reduce heading size */
+  }
+
+  .players-best-scores h3 {
+    font-size: 24px; /* Reduce font size for headings */
+  }
+
+  .players-best-holes-table {
+    width: 100%; /* Make the table take the full width of the container */
+    font-size: 12px; /* Reduce font size for the table */
+  }
+
+  .players-best-holes-table th,
+  .players-best-holes-table td {
+    padding: 5px; /* Reduce padding */
+  }
+
+  /* Adjusting round history scorecards */
+  .players-round-card {
+    flex-direction: column; /* Stack items vertically */
+    padding: 10px;
+  }
+
+  .players-scorecard-layout {
+    grid-template-columns: 1fr; /* Make the layout one column on mobile */
+    gap: 10px;
+  }
+
+  .players-score-details {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .players-hole-info-table th,
+  .players-hole-info-table td {
+    padding: 5px; /* Reduce padding for the round history table */
+    font-size: 12px;
+  }
+
+  .players-scorecard-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .players-scorecard-footer span {
+    margin-right: 0;
+  }
+
+  .players-scorecard-image-column {
+    margin-left: 0;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .players-scorecard-image {
+    max-width: 95%;
+    max-height: 200px;
+  }
+
+  .show-more-button {
+    width: 100%; /* Make button take full width on mobile */
+    font-size: 14px;
+  }
+}
+
+/* Extra small mobile styles for screens less than 480px */
+@media (max-width: 480px) {
+  .players-page {
+    padding: 5px;
+  }
+
+  h2 {
+    font-size: 24px; /* Further reduce heading size */
+  }
+
+  .players-best-scores h3 {
+    font-size: 18px; /* Reduce font size for headings */
+  }
+
+  .players-best-holes-table {
+    font-size: 10px; /* Further reduce font size for the table */
+  }
+
+  .players-best-holes-table th,
+  .players-best-holes-table td {
+    padding: 3px; /* Further reduce padding */
+  }
+
+  .players-round-card {
+    padding: 5px; /* Reduce padding */
+  }
+
+  .players-score-details {
+    padding: 5px;
+    font-size: 10px;
+    width: 95%;
+  }
+
+  .players-hole-info-table th,
+  .players-hole-info-table td {
+    padding: 3px;
+    font-size: 10px; /* Further reduce font size */
+  }
+
+  .players-scorecard-footer {
+    font-size: 10px;
+  }
+
+  .players-scorecard-image {
+    max-height: 150px; /* Further reduce image size */
+  }
+
+  .show-more-button {
+    font-size: 12px; /* Reduce button font size */
+  }
+}

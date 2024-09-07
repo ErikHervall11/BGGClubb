@@ -105,3 +105,59 @@
 .leaderboard .show-more-button:hover {
   background-color: #a40a5b; /* Darken button on hover */
 }
+
+@media (max-width: 768px) {
+  .leaderboard {
+    padding: 1rem;
+    max-width: 100%;
+  }
+
+  .leaderboard h2 {
+    font-size: 2rem;
+    letter-spacing: 1px;
+  }
+
+  .leaderboard th,
+  .leaderboard td {
+    padding: 0.4rem;
+    font-size: 0.4rem;
+  }
+
+  .leaderboard table {
+    width: 100%;
+    table-layout: fixed; /* Force columns to fit within table width */
+  }
+
+  .leaderboard th,
+  .leaderboard td {
+    word-wrap: break-word; /* Break long text into multiple lines */
+  }
+
+  .show-more-button {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .leaderboard h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .leaderboard th,
+  .leaderboard td {
+    font-size: 0.4rem;
+    padding: 0.3rem;
+  }
+
+  .leaderboard th,
+  .leaderboard td {
+    word-wrap: break-word; /* Ensure text fits even in smaller screens */
+  }
+
+  .show-more-button {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+}

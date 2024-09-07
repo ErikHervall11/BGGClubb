@@ -212,7 +212,7 @@ const RoundFormPage = () => {
 
         {selectedPlayers.map((player) => (
           <div className="select-backgrounds" key={player.id}>
-            <h3>
+            <h3 className="remove-h3">
               {player.name}{" "}
               {!isSubmitted && (
                 <button
@@ -226,7 +226,7 @@ const RoundFormPage = () => {
             </h3>
             {[...Array(9)].map((_, i) => (
               <div key={i} className="score-input">
-                <label>Hole {i + 1}:</label>
+                <label className="holess">Hole {i + 1}:</label>
                 <input
                   type="number"
                   value={scores[player.id]?.[i + 1] || ""}

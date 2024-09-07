@@ -129,3 +129,97 @@ span {
 .show-more-button:hover {
   background-color: #45a049;
 }
+
+@media (max-width: 768px) {
+  h2 {
+    font-size: 32px;
+  }
+
+  .round-card {
+    flex-direction: column; /* Stack the round card content vertically */
+    padding: 10px;
+  }
+
+  .scorecard-layout {
+    grid-template-columns: 1fr; /* Make the layout one column on mobile */
+    gap: 10px;
+  }
+
+  .score-details {
+    padding: 10px;
+    max-width: 95%;
+  }
+
+  .hole-info-table th,
+  .hole-info-table td {
+    padding: 5px;
+    font-size: 12px; /* Reduce font size for mobile */
+  }
+
+  .player-column,
+  .out-column {
+    font-size: 12px;
+  }
+
+  .scorecard-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .scorecard-footer span {
+    margin-right: 0;
+  }
+
+  .scorecard-image-column {
+    margin-left: 0;
+    justify-content: center;
+  }
+
+  .scorecard-image {
+    max-height: 200px; /* Reduce image size on mobile */
+  }
+
+  .show-more-button {
+    font-size: 14px; /* Reduce button font size */
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  h2 {
+    font-size: 24px;
+  }
+
+  .round-card {
+    padding: 5px;
+  }
+
+  .score-details {
+    padding: 5px;
+    font-size: 10px; /* Further reduce font size */
+    max-width: 95%;
+  }
+
+  .hole-info-table th,
+  .hole-info-table td {
+    padding: 3px;
+    font-size: 10px; /* Reduce font size */
+  }
+
+  .player-column,
+  .out-column {
+    font-size: 10px;
+  }
+
+  .scorecard-footer {
+    font-size: 10px;
+  }
+
+  .scorecard-image {
+    max-height: 150px; /* Further reduce image size */
+  }
+
+  .show-more-button {
+    font-size: 12px;
+  }
+}

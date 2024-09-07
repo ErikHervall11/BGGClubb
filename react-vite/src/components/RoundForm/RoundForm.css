@@ -57,6 +57,10 @@
   background-color: #c8e0fe;
 }
 
+.remove-h3 .remove-button {
+  width: 30%;
+}
+
 .round-form-container h2 {
   text-align: center;
   color: #c60c71;
@@ -67,6 +71,10 @@
 .round-form-container label {
   font-weight: bold;
   color: #333;
+}
+
+.round-form-container .holess {
+  width: 20%;
 }
 
 .round-form-container input[type="number"],

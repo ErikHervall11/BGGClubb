@@ -76,32 +76,50 @@
 
 .round-edit input {
   width: 30px;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 .round-edit button {
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 /* Media Query for Mobile Devices */
 @media (max-width: 768px) {
   .header-top {
-    flex-direction: column;
+    /* flex-direction: column; */
+    gap: 20px;
     margin-left: 0;
+  }
+
+  .navbar-profile button {
+    margin-top: 10px;
+  }
+
+  .header-top h1 {
+    font-size: 30px;
   }
 
   .scorecard-map,
   .scorecard-header {
-    width: 100px;
+    width: 40px;
     margin: 4px 0;
   }
 
-  .scorecard-map {
-    margin-bottom: -30px;
+  .navbarpages a {
+    font-size: 20px;
   }
 
-  .scorecard-header {
-    margin-top: -20px;
-    margin-bottom: 40px;
+  .navbarpages {
+    border: solid #c60c71 3px;
+    border-radius: 5px;
+  }
+  .navbarpages :hover {
+    /* background-color: #c60c71; */
+
+    color: #c8e0fe;
+  }
+
+  .navbar-links {
+    margin-left: 20px;
   }
 
   .header {
