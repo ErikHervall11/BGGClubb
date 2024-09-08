@@ -64,7 +64,7 @@ function Leaderboard() {
     <div className="leaderboard">
       <h2>Leaderboard</h2>
       {topPlayers.length === 0 ? (
-        <p>No golfers yet</p>
+        <p>Loading Golfers...</p>
       ) : (
         <div className="table-back">
           <table>
