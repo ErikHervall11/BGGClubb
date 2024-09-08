@@ -36,6 +36,7 @@ target_metadata = current_app.extensions['migrate'].db.metadata
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
+# test
 
 
 def run_migrations_offline():
