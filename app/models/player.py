@@ -1,8 +1,12 @@
 from app.models.db import db
 from sqlalchemy.sql import func
+from .db import db, add_prefix_for_prod, environment, SCHEMA
 
 class Player(db.Model):
     __tablename__ = 'players'
+    
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)

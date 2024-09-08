@@ -1,12 +1,16 @@
 from app.models.db import db
 from sqlalchemy.sql import func
+from .db import db, add_prefix_for_prod, environment, SCHEMA
 
 class Score(db.Model):
     __tablename__ = 'scores'
+    
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    round_id = db.Column(db.Integer, db.ForeignKey('rounds.id'), nullable=False)
-    player_id = db.Column(db.Integer, db.ForeignKey('players.id'), nullable=False)
+    round_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('rounds.id')), nullable=False)
+    player_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('players.id')), nullable=False)
     hole_number = db.Column(db.Integer, nullable=False)
     strokes = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
