@@ -258,6 +258,7 @@ const RoundFormPage = () => {
             type="file"
             onChange={handlePhotoChange}
             accept="image/*"
+            capture
             disabled={isSubmitted}
           />
         </div>
