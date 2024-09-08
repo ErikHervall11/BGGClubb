@@ -247,6 +247,10 @@ span {
     font-size: 12px;
   }
 
+  .players-hole-info-table .players-player-column {
+    font-size: 8px;
+  }
+
   .players-scorecard-footer {
     flex-direction: column;
     align-items: flex-start;

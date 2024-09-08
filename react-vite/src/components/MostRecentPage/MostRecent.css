@@ -206,6 +206,10 @@ span {
     font-size: 10px; /* Reduce font size */
   }
 
+  .hole-info-table .player-column {
+    font-size: 8px;
+  }
+
   .player-column,
   .out-column {
     font-size: 10px;
