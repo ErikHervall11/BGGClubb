@@ -64,13 +64,13 @@ function Leaderboard() {
     <div className="leaderboard">
       <h2>Leaderboard</h2>
       {topPlayers.length === 0 ? (
-        <p>No players yet</p>
+        <p>No golfers yet</p>
       ) : (
         <div className="table-back">
           <table>
             <thead>
               <tr>
-                <th>Player</th>
+                <th>Golfer</th>
                 {Array.from({ length: 9 }, (_, i) => (
                   <th key={i}>Hole {i + 1}</th>
                 ))}
