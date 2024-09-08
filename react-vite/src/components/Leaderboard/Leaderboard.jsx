@@ -3,7 +3,7 @@ import "./Leaderboard.css";
 
 function Leaderboard() {
   const [topPlayers, setTopPlayers] = useState([]);
-  const [visiblePlayers, setVisiblePlayers] = useState(10); // Start by showing 10 players
+  const [visiblePlayers, setVisiblePlayers] = useState(10);
 
   useEffect(() => {
     fetch("/api/players")
@@ -11,7 +11,7 @@ function Leaderboard() {
       .then((players) => {
         const playerScores = [];
 
-        // Fetch best scores for each player and calculate total
+        // Fetch best scores
         Promise.all(
           players.map((player) =>
             fetch(`/api/scores/player/${player.id}`)

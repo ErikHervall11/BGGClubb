@@ -22,7 +22,7 @@ const NewPlayerForm = () => {
 
       if (response.ok) {
         alert("Player added successfully!");
-        navigate("/players"); // Redirect to the players list page after success
+        navigate("/players");
       } else {
         const errorData = await response.json();
         console.error("Error adding player:", errorData);

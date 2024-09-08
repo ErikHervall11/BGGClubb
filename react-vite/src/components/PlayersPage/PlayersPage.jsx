@@ -6,18 +6,18 @@ const customStyles = {
   control: (provided, state) => ({
     ...provided,
     width: "80%",
-    backgroundColor: state.isFocused ? "#e29dd3" : "#e29dd3", // Change background color
-    borderColor: state.isFocused ? "#e29dd3" : "black", // Change border color when focused and unfocused
+    backgroundColor: state.isFocused ? "#e29dd3" : "#e29dd3",
+    borderColor: state.isFocused ? "#e29dd3" : "black",
     borderWidth: "2px",
-    boxShadow: state.isFocused ? "0 0 5px 5px #c8e0fe" : null, // Add a box shadow when focused
+    boxShadow: state.isFocused ? "0 0 5px 5px #c8e0fe" : null,
     "&:hover": {
-      borderColor: "#c8e0fe", // Change border color on hover
+      borderColor: "#c8e0fe",
     },
   }),
   menu: (provided) => ({
     ...provided,
     width: "50%",
-    backgroundColor: "#fff", // Change the background color of the dropdown menu
+    backgroundColor: "#fff",
     borderColor: "#c8e0fe",
   }),
   option: (provided, state) => ({
@@ -26,28 +26,28 @@ const customStyles = {
       ? "#c60c71"
       : state.isFocused
       ? "#f5f5f5"
-      : "#fff", // Change background color for selected and focused options
-    color: state.isSelected ? "#fff" : "#333", // Change text color for selected and non-selected
+      : "#fff",
+    color: state.isSelected ? "#fff" : "#333",
     "&:hover": {
-      backgroundColor: "#c8e0fe", // Background color when hovering over options
+      backgroundColor: "#c8e0fe",
     },
   }),
   placeholder: (provided) => ({
     ...provided,
-    color: "#999", // Change placeholder text color
+    color: "#999",
   }),
   singleValue: (provided) => ({
     ...provided,
-    color: "#333", // Change the text color of the selected value
+    color: "#333",
   }),
 };
 
 const PlayersPage = () => {
   const [players, setPlayers] = useState([]);
   const [selectedPlayer, setSelectedPlayer] = useState(null);
-  const [bestScores, setBestScores] = useState(Array(9).fill(null)); // Array to hold best scores for 9 holes
+  const [bestScores, setBestScores] = useState(Array(9).fill(null));
   const [rounds, setRounds] = useState([]);
-  const [roundLimit, setRoundLimit] = useState(8); // Default value; you will fetch the actual value
+  const [roundLimit, setRoundLimit] = useState(8);
 
   // Fetch players data when component loads
   useEffect(() => {
@@ -57,20 +57,18 @@ const PlayersPage = () => {
         const playerOptions = data.map((player) => ({
           value: player.id,
           label: player.name,
-          rounds_played: player.rounds_played, // Add rounds_played to player data
+          rounds_played: player.rounds_played,
         }));
         setPlayers(playerOptions);
       })
       .catch((error) => console.error("Error fetching players:", error));
 
-    // Fetch the maximum rounds allowed for the season
     fetch("/api/settings/round-limit")
       .then((response) => response.json())
       .then((data) => setRoundLimit(data.season_round_limit))
       .catch((error) => console.error("Error fetching round limit:", error));
   }, []);
 
-  // Fetch and calculate the best scores when a player is selected
   useEffect(() => {
     if (selectedPlayer) {
       fetch(`/api/scores/player/${selectedPlayer.value}`)
@@ -95,11 +93,9 @@ const PlayersPage = () => {
           console.error("Error fetching player scores:", error)
         );
 
-      // Fetch the rounds for the selected player
       fetch(`/api/rounds/player/${selectedPlayer.value}`)
         .then((response) => response.json())
         .then((data) => {
-          // Sort rounds by date (most recent first)
           const sortedRounds = data.sort(
             (a, b) => new Date(b.created_at) - new Date(a.created_at)
           );

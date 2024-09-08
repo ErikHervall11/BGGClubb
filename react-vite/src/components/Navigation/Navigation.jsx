@@ -2,9 +2,6 @@ import { NavLink } from "react-router-dom";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
 
-// const BASE_URL = process.env.REACT_APP_API_URL || "";
-// const imageUrl = `${BASE_URL}/static/uploads/McginnisGolfCourseScorecard.png`;
-
 function Navigation() {
   return (
     <nav className="navbar">

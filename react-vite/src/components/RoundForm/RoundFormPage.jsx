@@ -1,64 +1,35 @@
 import { useState, useEffect } from "react";
 import Select from "react-select";
 import "./RoundForm.css";
-//
-// const customStyles = {
-//   control: (provided) => ({
-//     ...provided,
-//     backgroundColor: "#fff", // Ensure the background is white
-//     color: "#000", // Ensure text color is black
-//   }),
-//   singleValue: (provided) => ({
-//     ...provided,
-//     color: "#000", // Ensure selected value text is black
-//   }),
-//   option: (provided, state) => ({
-//     ...provided,
-//     backgroundColor: state.isSelected ? "#e29dd3" : "#fff", // Highlight selected option
-//     color: state.isSelected ? "#000" : "#000", // Ensure options text is black
-//     "&:hover": {
-//       backgroundColor: "#f0e1ec", // Add a hover effect to options
-//     },
-//   }),
-//   placeholder: (provided) => ({
-//     ...provided,
-//     color: "#999", // Placeholder color
-//   }),
-// };
 
 const RoundFormPage = () => {
   const [scorerId, setScorerId] = useState(null);
   const [attesterId, setAttesterId] = useState(null);
   const [selectedPlayer, setSelectedPlayer] = useState(null);
-  const [players, setPlayers] = useState([]); // All players for Scorer and Attester
+  const [players, setPlayers] = useState([]);
   const [availablePlayersForScores, setAvailablePlayersForScores] = useState(
     []
-  ); // Only players who haven't hit round limit
+  );
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [scores, setScores] = useState({});
   const [photo, setPhoto] = useState(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [imageLoading, setImageLoading] = useState(false);
-  const [maxRounds, setMaxRounds] = useState(8); // Default value; you will fetch the actual value
-  const [playerMessage, setPlayerMessage] = useState(""); // Message to show if a player has hit max rounds
+  const [maxRounds, setMaxRounds] = useState(8);
+  const [playerMessage, setPlayerMessage] = useState("");
 
-  // Fetch the round limit and players
   useEffect(() => {
-    // Fetch the maximum rounds allowed for the season
     fetch("/api/settings/round-limit")
       .then((response) => response.json())
       .then((data) => {
         setMaxRounds(data.round_limit);
 
-        // Fetch all players for Scorer and Attester (no round limit filter)
         return fetch("/api/players");
       })
       .then((response) => response.json())
       .then((data) => {
-        // Set players for Scorer and Attester (all players)
         setPlayers(data);
 
-        // Filter out players for "Select Player" who have hit the max rounds
         const availablePlayersForScores = data.filter(
           (player) => player.rounds_played < maxRounds
         );
@@ -67,7 +38,6 @@ const RoundFormPage = () => {
       .catch((error) => console.error("Error fetching data:", error));
   }, [maxRounds]);
 
-  // Handle player selection
   const handlePlayerSelect = (player) => {
     if (
       selectedPlayers.length < 4 &&
@@ -77,15 +47,14 @@ const RoundFormPage = () => {
         (p) => p.id === player.value
       );
       setSelectedPlayers([...selectedPlayers, selectedPlayer]);
-      setSelectedPlayer(null); // Reset selected player after adding
+      setSelectedPlayer(null);
 
-      // Check if the player has hit the max rounds
       if (selectedPlayer.rounds_played >= maxRounds) {
         setPlayerMessage(
           `${selectedPlayer.name} has hit the maximum rounds for this season`
         );
       } else {
-        setPlayerMessage(""); // Clear the message if they haven't hit the max
+        setPlayerMessage("");
       }
     }
   };
@@ -114,7 +83,7 @@ const RoundFormPage = () => {
   };
 
   const handlePhotoChange = (e) => {
-    setPhoto(e.target.files[0]); // Store the selected photo in state
+    setPhoto(e.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
@@ -137,17 +106,17 @@ const RoundFormPage = () => {
       }
     });
 
-    setImageLoading(true); // Start loading spinner
+    setImageLoading(true);
 
     try {
       const response = await fetch("/api/rounds", {
         method: "POST",
-        body: formData, // Use FormData for the request body
+        body: formData,
       });
 
       if (response.ok) {
         alert("Round submitted successfully!");
-        setIsSubmitted(true); // Set form as submitted
+        setIsSubmitted(true);
       } else {
         const errorData = await response.json();
         console.error("Error submitting round:", errorData);
@@ -157,7 +126,7 @@ const RoundFormPage = () => {
       console.error("Error submitting round:", error);
       alert("Failed to submit round");
     } finally {
-      setImageLoading(false); // Stop loading spinner
+      setImageLoading(false);
     }
   };
 
@@ -168,8 +137,6 @@ const RoundFormPage = () => {
 
   return (
     <div className="round-form-container">
-      {/* <h2>Submit a Round</h2> */}
-
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div className="label-form">
           <label>
@@ -177,7 +144,6 @@ const RoundFormPage = () => {
             {scorerId ? players.find((p) => p.id === scorerId.value)?.name : ""}
           </label>
           <Select
-            // styles={customStyles}
             options={players.map((player) => ({
               value: player.id,
               label: player.name,
@@ -195,7 +161,6 @@ const RoundFormPage = () => {
               : ""}
           </label>
           <Select
-            // styles={customStyles}
             options={players.map((player) => ({
               value: player.id,
               label: player.name,

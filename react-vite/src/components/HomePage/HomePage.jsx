@@ -12,7 +12,7 @@ function HomePage({ isAdmin }) {
   const [newRoundLimit, setNewRoundLimit] = useState(roundLimit);
   const [weatherData, setWeatherData] = useState([]);
 
-  const apiKey = "XFFERAZ9K18NdW8dS60EHEfWqh8eTARR"; // Tomorrow.io API key
+  const apiKey = "XFFERAZ9K18NdW8dS60EHEfWqh8eTARR";
   const lat = 38.01983211871731;
   const lon = -122.52246954832552;
 
@@ -29,12 +29,12 @@ function HomePage({ isAdmin }) {
       .catch((error) => console.error("Error fetching round limit:", error));
   }, []);
 
-  // Fetch Weather Data from Tomorrow.io API
+  // Fetch Weather Data
   useEffect(() => {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        // Only grab the "daily" timeline data
+        // Only grab the daily
         const dailyWeather = data.timelines.daily;
         setWeatherData(dailyWeather);
       })

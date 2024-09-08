@@ -13,7 +13,7 @@ const RootLayout = () => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    fetch("/api/auth/") // Adjust this to your auth route
+    fetch("/api/auth/")
       .then((response) => response.json())
       .then((data) => {
         if (data.is_admin) {
@@ -23,7 +23,7 @@ const RootLayout = () => {
       .catch((error) => console.error("Error fetching user info:", error));
   }, []);
 
-  return <HomePage isAdmin={isAdmin} />; // Pass isAdmin to HomePage
+  return <HomePage isAdmin={isAdmin} />;
 };
 
 export const router = createBrowserRouter([
