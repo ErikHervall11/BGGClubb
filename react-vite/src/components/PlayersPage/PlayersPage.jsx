@@ -113,7 +113,7 @@ const PlayersPage = () => {
 
   return (
     <div className="players-page">
-      <h2>Select a Player</h2>
+      <h2>Select a Golfer</h2>
       <Select
         className="player-select-dropdown"
         options={players}
@@ -167,7 +167,7 @@ const PlayersPage = () => {
                     <table className="players-hole-info-table">
                       <thead>
                         <tr>
-                          <th>Player</th>
+                          <th>Golfer</th>
                           {Array.from({ length: 9 }, (_, i) => (
                             <th key={i}>Hole {i + 1}</th>
                           ))}

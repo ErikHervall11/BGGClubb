@@ -19,10 +19,10 @@ function Navigation() {
       </div>
       <ul className="navbar-links">
         <li className="navbarpages">
-          <NavLink to="/players">Players</NavLink>
+          <NavLink to="/players">Golfers</NavLink>
         </li>
         <li className="navbarpages">
-          <NavLink to="/rounds/new">Add New</NavLink>
+          <NavLink to="/rounds/new">New Round</NavLink>
         </li>
         <li className="navbarpages">
           <NavLink to="/rounds/recent">Most Recent</NavLink>
@@ -31,7 +31,7 @@ function Navigation() {
           <NavLink to="/leaderboard">Leaderboard</NavLink>
         </li>
         <li className="navbarpages">
-          <NavLink to="/players/new">Add New Player</NavLink>
+          <NavLink to="/players/new">Add New Golfer</NavLink>
         </li>
       </ul>
       <div className="navbar-profile">

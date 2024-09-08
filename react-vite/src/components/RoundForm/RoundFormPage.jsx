@@ -242,7 +242,7 @@ const RoundFormPage = () => {
 
         {selectedPlayers.length < 4 && (
           <div className="select-player">
-            <label>Select Player:</label>
+            <label>Select Golfer:</label>
             <Select
               options={playerOptions}
               value={selectedPlayer}
