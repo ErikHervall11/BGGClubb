@@ -16,6 +16,31 @@
   margin-left: 40px;
 }
 
+.google-sheet-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.google-sheet-link a {
+  display: flex;
+  text-align: center;
+  text-decoration: none;
+  font-style: italic;
+  margin: 10px 0px 40px 0px;
+  font-size: 20px;
+  border: solid 1px #c60c71;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #c60c71;
+  color: black;
+  box-shadow: 1px 1px 5px 1px black;
+}
+
+.google-sheet-link a:hover {
+  color: #c8e0fe;
+  box-shadow: 1px 1px 5px 1px #c8e0fe;
+}
+
 .header {
   font-size: 80px;
 }

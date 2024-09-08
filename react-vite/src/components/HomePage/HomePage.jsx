@@ -86,6 +86,15 @@ function HomePage({ isAdmin }) {
           alt=""
         />
       </div>
+      <div className="google-sheet-link">
+        <a
+          className="google-sheet"
+          href="https://docs.google.com/spreadsheets/u/0/d/1PYIu64VIR6y3FHJAov7bNp7WasOUm0sNFyKYWRyVs3g/htmlview?pli=1"
+          target="#"
+        >
+          Schedule Your Next Round!
+        </a>
+      </div>
 
       {/* Weather Forecast Section */}
       <div className="weather-section">
