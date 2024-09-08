@@ -48,6 +48,7 @@ db.init_app(app)
 Migrate(app, db)  # This line initializes Flask-Migrate
 
 # Application Security
+# Application Security
 CORS(app)
 
 
