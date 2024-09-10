@@ -74,6 +74,8 @@ def create_round():
         db.session.add(new_round)
         db.session.commit()
         
+        print(f"New round created with ID: {new_round.id}")
+        
         # Process scores
         for key, values in scores.items():
             # print(f"Processing key: {key} with values: {values}")  # Debugging statement

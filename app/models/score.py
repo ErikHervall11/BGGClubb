@@ -9,7 +9,7 @@ class Score(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    round_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('rounds.id')), nullable=False)
+    round_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('rounds.id'), ondelete='CASCADE'), nullable=False)
     player_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('players.id')), nullable=False)
     hole_number = db.Column(db.Integer, nullable=False)
     strokes = db.Column(db.Integer, nullable=False)
@@ -28,5 +28,5 @@ class Score(db.Model):
             'player_id': self.player_id,
             'hole_number': self.hole_number,
             'strokes': self.strokes,
-            'player': self.player.to_dict() if self.player else None,  # Include player data
+            'player': self.player.to_dict() if self.player else None,
         }

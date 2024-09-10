@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./MostRecent.css";
 
-const MostRecentPage = () => {
+const MostRecentPage = ({ isAdmin }) => {
   const [rounds, setRounds] = useState([]);
   const [visibleRounds, setVisibleRounds] = useState(10); // Start by showing 10 rounds
 
@@ -24,11 +24,41 @@ const MostRecentPage = () => {
     setVisibleRounds((prevVisibleRounds) => prevVisibleRounds + 10);
   };
 
+  // Handle delete round
+  const handleDeleteRound = (roundId) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this round?"
+    );
+    if (confirmed) {
+      fetch(`/api/rounds/admin/delete_round/${roundId}`, {
+        method: "DELETE",
+      })
+        .then((response) => {
+          if (response.ok) {
+            setRounds((prevRounds) =>
+              prevRounds.filter((round) => round.id !== roundId)
+            );
+          } else {
+            console.error("Failed to delete round.");
+          }
+        })
+        .catch((error) => console.error("Error deleting round:", error));
+    }
+  };
+
   return (
     <div className="most-recent-page">
       <h2>Most Recent Rounds</h2>
       {rounds.slice(0, visibleRounds).map((round) => (
         <div key={round.id} className="round-card">
+          {isAdmin && (
+            <button
+              className="delete-button"
+              onClick={() => handleDeleteRound(round.id)}
+            >
+              Delete Round
+            </button>
+          )}
           <div className="scorecard-layout">
             {/* Left column: table for hole details */}
             <div className="score-details">

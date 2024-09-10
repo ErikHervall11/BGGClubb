@@ -26,6 +26,23 @@ const RootLayout = () => {
   return <HomePage isAdmin={isAdmin} />;
 };
 
+const AdminAwareMostRecentPage = () => {
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/auth/")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.is_admin) {
+          setIsAdmin(true);
+        }
+      })
+      .catch((error) => console.error("Error fetching user info:", error));
+  }, []);
+
+  return <MostRecentPage isAdmin={isAdmin} />;
+};
+
 export const router = createBrowserRouter([
   {
     element: <Layout />,
@@ -48,7 +65,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "rounds/recent",
-        element: <MostRecentPage />,
+        element: <AdminAwareMostRecentPage />,
       },
       {
         path: "leaderboard",

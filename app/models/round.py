@@ -16,7 +16,7 @@ class Round(db.Model):
     updated_at = db.Column(db.DateTime(timezone=True), onupdate=func.now(), server_default=func.now())
 
     # Relationships
-    scores = db.relationship('Score', back_populates='round')
+    scores = db.relationship('Score', back_populates='round', cascade="all, delete-orphan")
     scorer = db.relationship('Player', foreign_keys=[scorer_id], back_populates='scorer_rounds')
     attester = db.relationship('Player', foreign_keys=[attester_id], back_populates='attester_rounds')
 
@@ -28,7 +28,7 @@ class Round(db.Model):
             'scorecard_image': self.scorecard_image,
             'created_at': self.created_at,
             'updated_at': self.updated_at,
-            'scores': [score.to_dict() for score in self.scores],  # Assuming Score has a to_dict method
-            'scorer': self.scorer.to_dict(),  # Assuming Player has a to_dict method
-            'attester': self.attester.to_dict(),  # Assuming Player has a to_dict method
+            'scores': [score.to_dict() for score in self.scores], 
+            'scorer': self.scorer.to_dict(),  
+            'attester': self.attester.to_dict(),  
         }

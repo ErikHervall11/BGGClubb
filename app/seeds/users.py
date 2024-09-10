@@ -6,8 +6,8 @@ from sqlalchemy.sql import text
 def seed_users():
     admin_user = User(
         username='admin',
-        email='admin@example.com',
-        password='password123',
+        email='LisaSOB@badgirlsgolf.com',
+        password='badgirls123',
         is_admin=True
     )
 
